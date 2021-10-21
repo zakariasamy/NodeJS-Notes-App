@@ -84,6 +84,24 @@ yargs(hideBin(process.argv))
     })
     .parse()
 
+// Read Note
+yargs(hideBin(process.argv))
+    .command({
+        command: 'read',
+        describe: 'read specific note',
+        builder: {
+            title: {
+                describe: 'Note title',
+                demandOption: true,
+                type: 'string'
+            }
+        },
+        handler(argv) {
+            notes.readNote(argv.title)
+        }
+    })
+    .parse()
+
 
 
 
@@ -95,6 +113,9 @@ All Commands
 
     Remove Note :
     node app.js rm --title="Note title"
+
+    Read specific Note :
+    node app.js read --title="Note title"
 
     List All Notes :
     node app.js ls

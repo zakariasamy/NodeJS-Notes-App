@@ -7,23 +7,6 @@ const argv = yargs(hideBin(process.argv)).argv
 const notes = require('./notes.js');
 
 
-// console.log(getNotes());
-
-// console.log(process.argv);
-// console.log(yargs.argv);
-
-
-// Create command to add new note
-// yargs.command({
-//     command: 'add',
-//     handler: () => console.log("Adding new note")
-// })
-
-// // Create command to remove note
-// yargs.command({
-//     command: 'remove',
-//     handler: () => console.log("remove note")
-// })
 
 // // List All Notes
 // yargs.command({
@@ -45,11 +28,60 @@ const notes = require('./notes.js');
 // })
 
 
+
+
+// Add new Note
 yargs(hideBin(process.argv))
-    .command('add', 'Add new Note', () => {}, (argv) => {
-        notes.addNote(argv.title, argv.body)
+    .command({
+        command: 'add',
+        describe: 'Add a new note',
+        builder: {
+            title: {
+                describe: 'Note title',
+                demandOption: true,
+                type: 'string'
+            },
+            body: {
+                describe: 'Note body',
+                demandOption: true,
+                type: 'string'
+            }
+        },
+        handler: function(argv) {
+            notes.addNote(argv.title, argv.body)
+        }
     })
-    .option('title', { demand: true, type: 'string' })
-    .option('body', { demand: true, type: 'string' })
-    .demandCommand(1)
     .parse()
+
+
+
+// Remove Note
+yargs(hideBin(process.argv))
+    .command({
+        command: 'rm',
+        describe: 'Remove a note',
+        builder: {
+            title: {
+                describe: 'Note title',
+                demandOption: true,
+                type: 'string'
+            }
+        },
+        handler: function(argv) {
+            notes.removeNote(argv.title)
+        }
+    })
+    .parse()
+
+
+
+
+
+/*
+All Commands
+    Add Note :
+    node app.js add --title="Note title" --body="Note body"
+    Remove Note :
+    node app.js rm --title="Note title"
+
+*/

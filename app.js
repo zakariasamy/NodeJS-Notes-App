@@ -73,6 +73,17 @@ yargs(hideBin(process.argv))
     })
     .parse()
 
+// List All Note
+yargs(hideBin(process.argv))
+    .command({
+        command: 'ls',
+        describe: 'List your notes',
+        handler() {
+            notes.listNotes()
+        }
+    })
+    .parse()
+
 
 
 
@@ -81,7 +92,11 @@ yargs(hideBin(process.argv))
 All Commands
     Add Note :
     node app.js add --title="Note title" --body="Note body"
+
     Remove Note :
     node app.js rm --title="Note title"
+
+    List All Notes :
+    node app.js ls
 
 */
